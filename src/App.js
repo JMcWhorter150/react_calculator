@@ -18,8 +18,8 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <div>
-            <input onChange={this._updateNum1} type="number" value={this.state.number1 || ""}></input>
-            <input onChange={this._updateNum2} type="number" value={this.state.number2 || ""}></input>
+            <input onChange={(event) => {this._updateNum('number1', event.target.value)}} type="number" value={this.state.number1 || 0}></input>
+            <input onChange={(event) => {this._updateNum('number2', event.target.value)}} type="number" value={this.state.number2 || 0}></input>
           </div>
   
           <div>
@@ -38,15 +38,10 @@ class App extends React.Component {
     );
   }
 
-  _updateNum1 = (event) => {
+  _updateNum = (key, newNum) => {
     this.setState({
-      number1: parseInt(event.target.value)
-    })
-  }
-
-  _updateNum2 = (event) => {
-    this.setState({
-      number2: parseInt(event.target.value)
+      // key has to be in brackets or javascript will interpret key as "key" when it sets state, this allows one to set the variable [key] as the argument
+      [key]: parseInt(newNum, 10) // needs to be base 10 to avoid problems with hexadecimals and binary
     })
   }
 
